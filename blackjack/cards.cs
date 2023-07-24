@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace blackjack
 {
-    internal class cards
+    public class cards
     {
+        public static int ValueofFirst { get;  set; }
+        public static int ValueofSecond { get; set; }
 
-        }
+    }
 }
