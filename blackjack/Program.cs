@@ -9,11 +9,13 @@ new cardProperties() { power=2, name="2"}
 };
 */
 int tokens = 50;
+Console.WriteLine($"You currenty have {tokens} tokens");
 Random rndDealer = new Random();
 var Dealer = rndDealer.Next(12, 22);
-Console.WriteLine($"You currenty have {tokens} tokens");
+
+Console.WriteLine("For how many tokens do you wish to play?");
+int tokensChoice = Int32.Parse(Console.ReadLine());
 Console.WriteLine($"Dealer has {Dealer}");
-if (Dealer > 21) { Console.Write(" Dealer has busted, you won."); }
 
 string[] name = new string[12];
 name[11] = "King";
@@ -31,10 +33,13 @@ name[0] = "2";
 ;
 //List<cards> ListofCards = new List<cards>();
 Random rnd = new Random();
-Restart:
 int totalValue = 0;
-while (true)
+
+
+    while (true)
     {
+
+        if (Dealer > 21) { Console.Write(" Dealer has busted, you won."); tokens += tokensChoice; Console.WriteLine($"You currenty have {tokens} tokens"); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); continue; }
         var Card = name[rnd.Next(0, 11)];
         if (Card == name[0]) { totalValue += 2; }
         else if (Card == name[1]) { totalValue += 3; }
@@ -48,21 +53,21 @@ while (true)
         else if (Card == name[9]) { totalValue += 10; }
         else if (Card == name[10]) { totalValue += 10; }
         else if (Card == name[11]) { totalValue += 10; }
-        Console.WriteLine(Card);
+        Console.WriteLine("Your card is: " + Card);
         int SumofValues = (totalValue);
-        Console.WriteLine(SumofValues + " value");
-        if (SumofValues > 21) { Console.WriteLine("It is a bust"); goto Restart; }
+        Console.WriteLine(" Sum of yours cards values is: " + SumofValues);
+        if (SumofValues > 21) { Console.WriteLine("It is a bust"); tokens -= tokensChoice; totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
         Console.WriteLine("do you want to hit(1) or stand(2)?");
         int choice = Int32.Parse(Console.ReadLine());
         if (choice == 2)
         {
-            if (SumofValues > Dealer) { Console.WriteLine("You won!"); tokens += 25; Console.WriteLine($"You currenty have {tokens} tokens"); goto Restart; }
-            else if (SumofValues < Dealer) { Console.WriteLine("You lost!"); tokens -= 25; Console.WriteLine($"You currenty have {tokens} tokens"); goto Restart; }
-            else if (SumofValues == Dealer) { Console.WriteLine("It is a push, no one won,"); Console.WriteLine($"You currenty have {tokens} tokens"); goto Restart; }
+            if (SumofValues > Dealer) { Console.WriteLine("You won!"); tokens += tokensChoice; Console.WriteLine($"You currenty have {tokens} tokens"); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
+            else if (SumofValues < Dealer) { Console.WriteLine("You lost!"); tokens -= tokensChoice; Console.WriteLine($"You currenty have {tokens} tokens"); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
+            else if (SumofValues == Dealer) { Console.WriteLine("It is a push, no one won,"); Console.WriteLine($"You currenty have {tokens} tokens"); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
 
 
         }
-
+    
 
     }
 
