@@ -9,7 +9,7 @@ new cardProperties() { power=2, name="2"}
 };
 */
 int tokens = 50;
-Console.WriteLine($"You currenty have {tokens} tokens");
+Console.WriteLine($"You currently have {tokens} tokens");
 Random rndDealer = new Random();
 var Dealer = rndDealer.Next(12, 22);
 
@@ -38,8 +38,9 @@ int totalValue = 0;
 
     while (true)
     {
-
-        if (Dealer > 21) { Console.Write(" Dealer has busted, you won."); tokens += tokensChoice; Console.WriteLine($"You currenty have {tokens} tokens"); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); continue; }
+        Tokens:
+        if (tokensChoice > tokens) { Console.WriteLine("You cannot afford that."); Console.WriteLine("For how many tokens do you wish to play?"); tokensChoice = Int32.Parse(Console.ReadLine()); ; goto Tokens; }
+        if (Dealer > 21) { Console.Write(" Dealer has busted, you won."); tokens += tokensChoice; Console.WriteLine($"You currently have {tokens} tokens"); Console.WriteLine("For how many tokens do you wish to play?"); tokensChoice = Int32.Parse(Console.ReadLine()); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
         var Card = name[rnd.Next(0, 11)];
         if (Card == name[0]) { totalValue += 2; }
         else if (Card == name[1]) { totalValue += 3; }
@@ -56,14 +57,14 @@ int totalValue = 0;
         Console.WriteLine("Your card is: " + Card);
         int SumofValues = (totalValue);
         Console.WriteLine(" Sum of yours cards values is: " + SumofValues);
-        if (SumofValues > 21) { Console.WriteLine("It is a bust"); tokens -= tokensChoice; totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
+        if (SumofValues > 21) { Console.WriteLine("It is a bust"); tokens -= tokensChoice; Console.WriteLine($"You currently have {tokens} tokens"); Console.WriteLine("For how many tokens do you wish to play?"); tokensChoice = Int32.Parse(Console.ReadLine()); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
         Console.WriteLine("do you want to hit(1) or stand(2)?");
         int choice = Int32.Parse(Console.ReadLine());
         if (choice == 2)
         {
-            if (SumofValues > Dealer) { Console.WriteLine("You won!"); tokens += tokensChoice; Console.WriteLine($"You currenty have {tokens} tokens"); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
-            else if (SumofValues < Dealer) { Console.WriteLine("You lost!"); tokens -= tokensChoice; Console.WriteLine($"You currenty have {tokens} tokens"); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
-            else if (SumofValues == Dealer) { Console.WriteLine("It is a push, no one won,"); Console.WriteLine($"You currenty have {tokens} tokens"); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
+            if (SumofValues > Dealer) { Console.WriteLine("You won!"); tokens += tokensChoice; Console.WriteLine($"You currently have {tokens} tokens"); Console.WriteLine("For how many tokens do you wish to play?"); tokensChoice = Int32.Parse(Console.ReadLine()); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
+            else if (SumofValues < Dealer) { Console.WriteLine("You lost!"); tokens -= tokensChoice; Console.WriteLine($"You currently have {tokens} tokens"); Console.WriteLine("For how many tokens do you wish to play?");  tokensChoice = Int32.Parse(Console.ReadLine()); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
+            else if (SumofValues == Dealer) { Console.WriteLine("It is a push, no one won,"); Console.WriteLine($"You currently have {tokens} tokens"); Console.WriteLine("For how many tokens do you wish to play?"); tokensChoice = Int32.Parse(Console.ReadLine()); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
 
 
         }
