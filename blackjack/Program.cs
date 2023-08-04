@@ -2,6 +2,7 @@
 using blackjack;
 using Microsoft.VisualBasic;
 using System;
+using System.ComponentModel.Design;
 /*
 var cardProperties = new List<cardProperties> {
 new cardProperties() { power=1, name="1"},
@@ -17,7 +18,8 @@ Console.WriteLine("For how many tokens do you wish to play?");
 int tokensChoice = Int32.Parse(Console.ReadLine());
 Console.WriteLine($"Dealer has {Dealer}");
 
-string[] name = new string[12];
+string[] name = new string[13];
+name[12] = "Ace";
 name[11] = "King";
 name[10] = "Queen";
 name[9] = "Jack";
@@ -34,14 +36,14 @@ name[0] = "2";
 //List<cards> ListofCards = new List<cards>();
 Random rnd = new Random();
 int totalValue = 0;
+int SumofValues = (totalValue);
 
-
-    while (true)
+while (true)
     {
         Tokens:
         if (tokensChoice > tokens) { Console.WriteLine("You cannot afford that."); Console.WriteLine("For how many tokens do you wish to play?"); tokensChoice = Int32.Parse(Console.ReadLine()); ; goto Tokens; }
         if (Dealer > 21) { Console.Write(" Dealer has busted, you won."); tokens += tokensChoice; Console.WriteLine($"You currently have {tokens} tokens"); Console.WriteLine("For how many tokens do you wish to play?"); tokensChoice = Int32.Parse(Console.ReadLine()); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
-        var Card = name[rnd.Next(0, 11)];
+        var Card = name[rnd.Next(0, 13)];
         if (Card == name[0]) { totalValue += 2; }
         else if (Card == name[1]) { totalValue += 3; }
         else if (Card == name[2]) { totalValue += 4; }
@@ -54,8 +56,9 @@ int totalValue = 0;
         else if (Card == name[9]) { totalValue += 10; }
         else if (Card == name[10]) { totalValue += 10; }
         else if (Card == name[11]) { totalValue += 10; }
-        Console.WriteLine("Your card is: " + Card);
-        int SumofValues = (totalValue);
+        else if (Card == name[12]) { if (SumofValues > 10) { totalValue += 1; } else { totalValue += 11; } }
+    Console.WriteLine("Your card is: " + Card);
+        SumofValues = (totalValue);
         Console.WriteLine(" Sum of yours cards values is: " + SumofValues);
         if (SumofValues > 21) { Console.WriteLine("It is a bust"); tokens -= tokensChoice; Console.WriteLine($"You currently have {tokens} tokens"); Console.WriteLine("For how many tokens do you wish to play?"); tokensChoice = Int32.Parse(Console.ReadLine()); totalValue = 0; Dealer = rndDealer.Next(12, 22); Console.WriteLine($"Dealer has {Dealer}"); }
         Console.WriteLine("do you want to hit(1) or stand(2)?");
